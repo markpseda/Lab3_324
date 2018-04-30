@@ -1,0 +1,16 @@
+library IEEE;
+
+entity ALU is
+	Port ( Mode : in STD_LOGIC;
+		   A : in STD_LOGIC_VECTOR (3 downto 0);
+		   B : in STD_LOGIC_VECTOR (3 downto 0);
+		   CLK : in STD_LOGIC;
+		   Result : out STD_LOGIC_VECTOR (3 downto 0);
+		  
+end ALU;
+
+architecture Behavioral of ALU is 
+
+begin
+
+end Behavioral;
