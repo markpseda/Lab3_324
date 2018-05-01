@@ -4,9 +4,9 @@ use ieee.numeric_std.all;
 
 entity DISPLAY is
 	Port ( reg_data : in STD_LOGIC_VECTOR(7 downto 0);
-		   enable : in STD_LOGIC;
-		  
-end DISPLAY;
+		   enable   : in STD_LOGIC
+	);	  
+end entity DISPLAY;
 
 architecture Behavioral of DISPLAY is 
 begin  
