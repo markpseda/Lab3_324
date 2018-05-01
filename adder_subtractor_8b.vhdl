@@ -17,16 +17,16 @@ end behav;
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity adder_subtractor is
+entity adder_subtractor_8b is
 port(
     Mode : in std_logic;
-    A, B : in std_logic_vector(3 downto 0);
-    C: out std_logic_vector(3 downto 0);
+    A, B : in std_logic_vector(7 downto 0);
+    C: out std_logic_vector(7 downto 0);
     Overflow, Underflow : out std_logic
     );
-end adder_subtractor;
+end adder_subtractor_8b;
 
-architecture structure of adder_subtractor is
+architecture structure of adder_subtractor_8b is
 component full_adder is
     port(
         a, b, cin: in std_logic;
@@ -34,9 +34,9 @@ component full_adder is
     );
 end component;
 
-signal b0,b1,b2,b3: std_logic;
+signal b0,b1,b2,b3,b4,b5,b6,b7: std_logic;
 
-signal c1,c2,c3, c4: std_logic;
+signal c1,c2,c3,c4,c5,c6,c7,c8: std_logic;
 
 
 begin
@@ -46,6 +46,10 @@ b0 <= B(0) xor Mode;
 b1 <= B(1) xor Mode;
 b2 <= B(2) xor Mode;
 b3 <= B(3) xor Mode;
+b4 <= B(4) xor Mode;
+b5 <= B(5) xor Mode;
+b6 <= B(6) xor Mode;
+b7 <= B(7) xor Mode;
 
 fa1: full_adder port map (
     a => A(0),
@@ -79,7 +83,39 @@ fa4: full_adder port map (
     cout => c4
 );
 
-Overflow <= c3 and not c4;
-Underflow <= c4 and not c3;
+fa5: full_adder port map (
+    a => A(4),
+    b => b4,
+    cin => c4,
+    S => C(4),
+    cout => c5
+);
+
+fa6: full_adder port map (
+    a => A(5),
+    b => b5,
+    cin => c5,
+    S => C(5),
+    cout => c6
+);
+
+fa7: full_adder port map (
+    a => A(6),
+    b => b6,
+    cin => c6,
+    S => C(6),
+    cout => c7
+);
+
+fa8: full_adder port map (
+    a => A(7),
+    b => b7,
+    cin => c7,
+    S => C(7),
+    cout => c8
+);
+
+Overflow <= c7 and not c8;
+Underflow <= c8 and not c7;
 
 end structure;
