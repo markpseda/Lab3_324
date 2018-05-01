@@ -44,10 +44,13 @@ end component;
 signal select0,select1,select2,select3 : std_logic_vector(1 downto 0);
 -- output signals for each register
 signal reg0Val, reg1Val, reg2Val, reg3Val : std_logic_vector(7 downto 0);
+-- signal to trigger the register operations after necessary processes have finished
+signal triggerRegisters: std_logic := '0';
+
 
 begin
 -- process to handle writing to register
-process(enableWrite, des) is
+process(enableWrite, des, clk) is
 begin
     -- 00 is hold and 11 is load operation for shift registers
     select0 <= "00";
@@ -62,6 +65,15 @@ begin
             when "11" => select3 <= "11";
             when others => select0 <= "11"; -- default case for safety
         end case;
+        -- a little bit "cheaty" here, but this ensures the write happens before the read
+        if(clk'event) then
+            if(clk = '1') then
+                triggerRegisters <= '1';
+            end if;
+            if(clk = '0') then
+                triggerRegisters <= '0';
+            end if;
+        end if;
     end if;
 end process;
 
@@ -79,7 +91,7 @@ end process;
 
 process(reg0Val, reg1Val, reg2Val, reg3Val, rt) is
 begin
-    case rs is
+    case rt is
         when "00" => rtval <= reg0Val;
         when "01" => rtval <= reg1Val;
         when "10" => rtval <= reg2Val;
@@ -87,6 +99,42 @@ begin
         when others => rtval <= reg0Val; -- safety again
     end case;
 end process;
+
+reg0: shift_reg_8b port map(
+    I => write_data,
+	I_SHIFT_IN => '0',
+	sel => select0,
+	clock => triggerRegisters,
+	enable => '1',
+	O => reg0Val
+);
+
+reg1: shift_reg_8b port map(
+    I => write_data,
+	I_SHIFT_IN => '0',
+	sel => select1,
+	clock => triggerRegisters,
+	enable => '1',
+	O => reg1Val
+);
+
+reg2: shift_reg_8b port map(
+    I => write_data,
+	I_SHIFT_IN => '0',
+	sel => select2,
+	clock => triggerRegisters,
+	enable => '1',
+	O => reg2Val
+);
+
+reg3: shift_reg_8b port map(
+    I => write_data,
+	I_SHIFT_IN => '0',
+	sel => select3,
+	clock => triggerRegisters,
+	enable => '1',
+	O => reg3Val
+);
 
 
 end structure;
