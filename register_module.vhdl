@@ -78,7 +78,7 @@ begin
 end process;
 
 -- processes to handle reading from appropriate registers
-process(reg0Val, reg1Val, reg2Val, reg3Val, rs) is
+process(reg0Val, reg1Val, reg2Val, reg3Val, rs, clk) is
 begin
     case rs is
         when "00" => rsval <= reg0Val;
@@ -89,7 +89,7 @@ begin
     end case;
 end process;
 
-process(reg0Val, reg1Val, reg2Val, reg3Val, rt) is
+process(reg0Val, reg1Val, reg2Val, reg3Val, rt, clk) is
 begin
     case rt is
         when "00" => rtval <= reg0Val;

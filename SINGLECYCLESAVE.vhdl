@@ -64,9 +64,6 @@ signal display_enable, write_enable, subtraction_enable: std_logic;
 
 signal rs_in, rt_in, des_in: std_logic_vector(1 downto 0); -- vary because of varying opcodes
 
--- used to make sure control values are set BEFORE component modules perform their various operations
-signal internal_clock: std_logic;
-
 
 
 -- END SIGNALS
@@ -84,7 +81,7 @@ register_mod: register_module port map(
     rt => rt_in,
     des => des_in,
     write_data => write_data_input,
-    clk => internal_clock,
+    clk => clk,
     enableWrite => write_enable,
     rsval => rs_value,
     rtval => rt_value
@@ -101,15 +98,13 @@ display: display_module port map(
     reg_data => rs_value,
     reg_num => rs_in,
     enable => display_enable,
-    clk => internal_clock
+    clk => clk
 );
 
 
--- Control signals
-process(I(7 downto 5), sign_extend_val, clk) is
+-- SPEC_OP CONTROL SIGNALS
+process(I(7), I(6)) is
     begin
-
-        -- SPEC_OP CONTROL SIGNALS
         if(I(7) = '0' and I(6) = '1') then
             rs_in <= I(4 downto 3);
             rt_in <= I(5 downto 4);
@@ -117,13 +112,21 @@ process(I(7 downto 5), sign_extend_val, clk) is
             rs_in <= I(5 downto 4);
             rt_in <= I(3 downto 2);
         end if;
-        -- DEST_SEL CONTROL SIGNAL
+end process;
+
+-- DEST_SEL CONTROL SIGNAL
+process(I(7), I(6)) is
+    begin
         if(I(7) = '1' or I(6) = '1') then
             des_in <= I(1 downto 0);
         else
             des_in <= I(5 downto 4);
         end if;
-        -- ADD_SUB_SEL
+end process;
+
+-- ADD_SUB_SEL
+process(I(7), I(6)) is
+    begin
         if(I(7) = '1' or I(6) = '1') then
             addsub_input_a <= rs_value;
             addsub_input_b <= rt_value;
@@ -131,33 +134,30 @@ process(I(7 downto 5), sign_extend_val, clk) is
             addsub_input_a <= "00000000";
             addsub_input_b <= sign_extend_val;
         end if;
-        -- PRINT_EN
+end process;
+
+-- PRINT_EN
+process(I(7 downto 5)) is
+    begin
         if(I(7 downto 5) = "010") then
             display_enable <= '1';
         else
             display_enable <= '0';
         end if;
-        -- ALU_SUB
-        if(I(7 downto 5) = "011" or (I(7 downto 6) = "10")) then
+end process;
+
+-- ALU_SUB
+process(I(7 downto 6)) is
+    begin
+        if(I(6) = '0' or (I(7) = '0' and I(6) = '1')) then
             subtraction_enable <= '1';
         else
             subtraction_enable <= '0';
         end if;
-        -- WRITE_EN
-        write_enable <= '1';
-
-        -- trigger the operation of the register and display modules
-        if(clk'event) then
-            if(clk = '1') then
-                internal_clock <= '1';
-            end if;
-            if(clk = '0') then
-                internal_clock <= '0';
-            end if;
-        end if;
-
 end process;
 
+-- WRITE_EN
+write_enable <= '1';
 
 
 

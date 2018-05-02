@@ -41,7 +41,8 @@ architecture behavioral of single_cycle_tb is
         -- low clock values are handled by the test suite since updates only occur on rising edges
         constant patterns : pattern_array :=
         (("00000011", '1', "00000011"),
-        ("01000000", '1', "00000011"));
+        ("00000111", '1', "00000111"),
+        ("01000000", '1', "00000111"));
 
         begin
 

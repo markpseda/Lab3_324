@@ -1,27 +1,30 @@
 v 4
-file . "adder_subtractor_8b.vhdl" "85390bfc94988970ebfdb9f1f57ea55cc050ffbf" "20180502033228.146":
-  entity full_adder at 1( 0) + 0 on 329;
-  architecture behav of full_adder at 11( 173) + 0 on 330;
-  entity adder_subtractor_8b at 17( 305) + 0 on 331;
-  architecture structure of adder_subtractor_8b at 28( 538) + 0 on 332;
-file . "single_cycle.vhdl" "e8c428bf22a6d8fd07e4975ae19204a65518826c" "20180502033228.187":
-  entity single_cycle at 1( 0) + 0 on 333;
-  architecture structure of single_cycle at 18( 567) + 0 on 334;
-file . "display_module.vhdl" "a8b05f19c419e90a1055a12d003f9cddcc0f0d0b" "20180502033228.056":
-  entity display_module at 1( 0) + 0 on 325;
-  architecture behavioral of display_module at 14( 290) + 0 on 326;
-file . "shift_reg_8b.vhdl" "c7b3ad89766042285d0942627ecd5ffbb984a45f" "20180502033227.973":
-  entity shift_reg_8b at 1( 0) + 0 on 321;
-  architecture structure of shift_reg_8b at 14( 466) + 0 on 322;
-file . "shift_reg.vhdl" "406077cbdb3e5bb63dc5f2227f91df753259ce2f" "20180502033227.932":
-  entity shift_reg at 1( 0) + 0 on 319;
-  architecture behav of shift_reg at 15( 485) + 0 on 320;
-file . "register_module.vhdl" "40856e375dfc8daf9d15baa6638b7de39f1b4470" "20180502033228.014":
-  entity register_module at 1( 0) + 0 on 323;
-  architecture structure of register_module at 29( 1013) + 0 on 324;
-file . "sign_extend_module.vhdl" "c95f3343a4921a0c78a8daaa454cb49c0b6b0888" "20180502033228.103":
-  entity sign_extend_module at 1( 0) + 0 on 327;
-  architecture behav of sign_extend_module at 11( 220) + 0 on 328;
-file . "single_cycle_tb.vhdl" "7cbce8cdd97c64be1619857058bfcdc599c38122" "20180502033228.229":
-  entity single_cycle_tb at 1( 0) + 0 on 335;
-  architecture behavioral of single_cycle_tb at 7( 98) + 0 on 336;
+file . "adder_subtractor_8b.vhdl" "85390bfc94988970ebfdb9f1f57ea55cc050ffbf" "20180502160158.864":
+  entity full_adder at 1( 0) + 0 on 513;
+  architecture behav of full_adder at 11( 173) + 0 on 514;
+  entity adder_subtractor_8b at 17( 305) + 0 on 515;
+  architecture structure of adder_subtractor_8b at 28( 538) + 0 on 516;
+file . "single_cycle.vhdl" "22adeb5cc58ca7d17337afcd179c35339cdcfe12" "20180502160158.900":
+  entity single_cycle at 1( 0) + 0 on 517;
+  architecture structure of single_cycle at 18( 567) + 0 on 518;
+file . "display_module.vhdl" "a8b05f19c419e90a1055a12d003f9cddcc0f0d0b" "20180502160158.790":
+  entity display_module at 1( 0) + 0 on 509;
+  architecture behavioral of display_module at 14( 290) + 0 on 510;
+file . "shift_reg_8b.vhdl" "c7b3ad89766042285d0942627ecd5ffbb984a45f" "20180502160158.709":
+  entity shift_reg_8b at 1( 0) + 0 on 505;
+  architecture structure of shift_reg_8b at 14( 466) + 0 on 506;
+file . "shift_reg.vhdl" "406077cbdb3e5bb63dc5f2227f91df753259ce2f" "20180502160158.665":
+  entity shift_reg at 1( 0) + 0 on 503;
+  architecture behav of shift_reg at 15( 485) + 0 on 504;
+file . "register_module.vhdl" "7799008c689840e797bf4de0cc3acf2ef330bcbb" "20180502160158.750":
+  entity register_module at 1( 0) + 0 on 507;
+  architecture structure of register_module at 29( 1013) + 0 on 508;
+file . "sign_extend_module.vhdl" "c95f3343a4921a0c78a8daaa454cb49c0b6b0888" "20180502160158.833":
+  entity sign_extend_module at 1( 0) + 0 on 511;
+  architecture behav of sign_extend_module at 11( 220) + 0 on 512;
+file . "single_cycle_tb.vhdl" "3d2ff2cbc463d9827056392e332e1af2b520f361" "20180502160158.937":
+  entity single_cycle_tb at 1( 0) + 0 on 519;
+  architecture behavioral of single_cycle_tb at 7( 98) + 0 on 520;
+file . "register_module_tb.vhdl" "0fab2d14d8ca99668ca29d6a80e7f68a507a5b05" "20180502151957.748":
+  entity register_module_tb at 1( 0) + 0 on 449;
+  architecture behav of register_module_tb at 7( 104) + 0 on 450;
