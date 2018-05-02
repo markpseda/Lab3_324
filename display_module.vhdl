@@ -2,22 +2,25 @@ library IEEE;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity DISPLAY is
-	Port ( reg_data : in STD_LOGIC_VECTOR(7 downto 0);
-		   enable   : in STD_LOGIC
+entity display_module is
+	Port ( 
+		reg_data : in std_logic_vector(7 downto 0);
+		reg_num: in std_logic_vector(1 downto 0);
+		enable   : in std_logic;
+		clk : in std_logic
 	);	  
-end entity DISPLAY;
+end entity display_module;
 
-architecture Behavioral of DISPLAY is 
+architecture behavioral of display_module is 
 begin  
-	process(reg_data, enable) is
+	process(clk) is
 	begin
-		if(enable = '0') then
-			report "0000";
-		else
+		if(clk'event and clk = '1' and enable = '1') then
+			report "Register Number: ";
+			report integer'image(to_integer(unsigned(reg_num)));
+			report "Register Value: ";
 			report integer'image(to_integer(signed(reg_data)));
+			report "";
 		end if;
 	end process;
-
-
-end Behavioral;
+end behavioral;

@@ -21,8 +21,7 @@ entity adder_subtractor_8b is
 port(
     Mode : in std_logic;
     A, B : in std_logic_vector(7 downto 0);
-    C: out std_logic_vector(7 downto 0);
-    Overflow, Underflow : out std_logic
+    C: out std_logic_vector(7 downto 0)
     );
 end adder_subtractor_8b;
 
@@ -115,7 +114,5 @@ fa8: full_adder port map (
     cout => c8
 );
 
-Overflow <= c7 and not c8;
-Underflow <= c8 and not c7;
 
 end structure;
