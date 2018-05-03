@@ -67,10 +67,10 @@ begin
         end case;
         -- a little bit "cheaty" here, but this ensures the write happens before the read
         if(clk'event) then
-            if(clk = '1') then
+            if(clk = '0') then
                 triggerRegisters <= '1';
             end if;
-            if(clk = '0') then
+            if(clk = '1') then
                 triggerRegisters <= '0';
             end if;
         end if;

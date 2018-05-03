@@ -15,12 +15,12 @@ architecture behavioral of display_module is
 begin  
 	process(clk) is
 	begin
-		if(clk'event and clk = '1' and enable = '1') then
-			report "Register Number: ";
-			report integer'image(to_integer(unsigned(reg_num)));
-			report "Register Value: ";
+		if(clk'event and clk = '0' and enable = '1') then
+			--report "Register Number: ";
+			--report integer'image(to_integer(unsigned(reg_num)));
+			--report "Register Value: ";
 			report integer'image(to_integer(signed(reg_data)));
-			report "";
+			--report "";
 		end if;
 	end process;
 end behavioral;

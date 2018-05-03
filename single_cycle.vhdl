@@ -23,7 +23,7 @@ component register_module is
         des:    in std_logic_vector(1 downto 0);
         write_data: in std_logic_vector(7 downto 0);
         clk:    in std_logic;
-        enableWrite: in std_logic;
+        enableWrite: in std_logic;   
         rsval:   out std_logic_vector(7 downto 0);
         rtval:   out std_logic_vector(7 downto 0)
     );
@@ -67,6 +67,7 @@ signal rs_in, rt_in, des_in: std_logic_vector(1 downto 0); -- vary because of va
 -- used to make sure control values are set BEFORE component modules perform their various operations
 signal internal_clock: std_logic;
 
+signal skip: std_logic_vector(3 downto 0) := "0000";
 
 
 -- END SIGNALS
@@ -94,7 +95,7 @@ adder_subtractor: adder_subtractor_8b port map(
     Mode => subtraction_enable,
     A => addsub_input_a,
     B => addsub_input_b,
-    C => write_data_input
+    C => adder_subtractor_8b_out
 );
 
 display: display_module port map(
@@ -104,25 +105,28 @@ display: display_module port map(
     clk => internal_clock
 );
 
+-- definitely could break apart actually...
 
 -- Control signals
-process(I(7 downto 5), sign_extend_val, clk) is
+process(I(7 downto 5), sign_extend_val, adder_subtractor_8b_out, write_data_input, rs_value, rt_value, clk) is
     begin
-
+        if(skip = "0000") then
         -- SPEC_OP CONTROL SIGNALS
-        if(I(7) = '0' and I(6) = '1') then
+        if(I(7 downto 6) = "01") then
             rs_in <= I(4 downto 3);
-            rt_in <= I(5 downto 4);
+            rt_in <= I(2 downto 1);
         else
-            rs_in <= I(5 downto 4);
-            rt_in <= I(3 downto 2);
+            rs_in <= I(3 downto 2);
+            rt_in <= I(1 downto 0);
         end if;
+
         -- DEST_SEL CONTROL SIGNAL
-        if(I(7) = '1' or I(6) = '1') then
-            des_in <= I(1 downto 0);
-        else
-            des_in <= I(5 downto 4);
-        end if;
+        --if(I(7) = '1' or I(6) = '1' or I(7 downto 6) = "00") then
+        des_in <= I(5 downto 4);
+        --else
+           -- des_in <= I(5 downto 4);
+        --end if;
+
         -- ADD_SUB_SEL
         if(I(7) = '1' or I(6) = '1') then
             addsub_input_a <= rs_value;
@@ -131,20 +135,47 @@ process(I(7 downto 5), sign_extend_val, clk) is
             addsub_input_a <= "00000000";
             addsub_input_b <= sign_extend_val;
         end if;
+
         -- PRINT_EN
         if(I(7 downto 5) = "010") then
             display_enable <= '1';
         else
             display_enable <= '0';
         end if;
+
         -- ALU_SUB
         if(I(7 downto 5) = "011" or (I(7 downto 6) = "10")) then
             subtraction_enable <= '1';
         else
             subtraction_enable <= '0';
         end if;
-        -- WRITE_EN
-        write_enable <= '1';
+
+        -- WRITE_EN - first bit 1, or 00
+        if(I(7) = '1' or I(7 downto 6) = "00") then
+           write_enable <= '1';
+        else
+           write_enable <= '0';
+        end if;
+
+        -- Register write value
+        write_data_input <= adder_subtractor_8b_out;
+
+        -- Output for testing
+        O <= adder_subtractor_8b_out;
+        
+        -- compare detection
+        if(I(7 downto 5) = "011") then
+            if(adder_subtractor_8b_out = "00000000") then
+                if(I(0) = '1') then
+                    skip <= "0111";
+                end if;
+                if(I(0) = '0') then
+                    skip <= "0011";
+                end if;
+            end if;
+        end if;
+        
+        end if; -- preventing behavior if skip is active
 
         -- trigger the operation of the register and display modules
         if(clk'event) then
@@ -152,8 +183,26 @@ process(I(7 downto 5), sign_extend_val, clk) is
                 internal_clock <= '1';
             end if;
             if(clk = '0') then
+                if(skip /= "0000") then
+                    if(skip = "1111") then
+                        skip <= "0111";
+                    elsif(skip = "0111") then
+                        skip <= "0011";
+                    elsif(skip = "0011") then
+                        skip <= "0001";
+                    elsif(skip = "0001") then
+                        skip <= "0000";
+                    end if;
+                end if;
                 internal_clock <= '0';
             end if;
+
+            if(skip /= "0000") then
+                -- disable for this half cycle
+                display_enable <= '0';
+                write_enable <= '0';
+            end if;
+
         end if;
 
 end process;
