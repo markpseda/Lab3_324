@@ -1,30 +1,33 @@
 v 4
-file . "register_module_tb.vhdl" "0fab2d14d8ca99668ca29d6a80e7f68a507a5b05" "20180503173913.737":
-  entity register_module_tb at 1( 0) + 0 on 861;
-  architecture behav of register_module_tb at 7( 104) + 0 on 862;
-file . "single_cycle_tb.vhdl" "5d1ec23ed9517e77969f91d4021c311389e3ed56" "20180503214026.271":
-  entity single_cycle_tb at 1( 0) + 0 on 2159;
-  architecture behavioral of single_cycle_tb at 8( 119) + 0 on 2160;
-file . "sign_extend_module.vhdl" "c95f3343a4921a0c78a8daaa454cb49c0b6b0888" "20180503214026.131":
-  entity sign_extend_module at 1( 0) + 0 on 2151;
-  architecture behav of sign_extend_module at 11( 220) + 0 on 2152;
-file . "register_module.vhdl" "7ee460dffbf3084eac5cc56b6063d150c0dd588b" "20180503214026.029":
-  entity register_module at 1( 0) + 0 on 2147;
-  architecture structure of register_module at 29( 1013) + 0 on 2148;
-file . "shift_reg.vhdl" "406077cbdb3e5bb63dc5f2227f91df753259ce2f" "20180503214025.917":
-  entity shift_reg at 1( 0) + 0 on 2143;
-  architecture behav of shift_reg at 15( 485) + 0 on 2144;
-file . "shift_reg_8b.vhdl" "c7b3ad89766042285d0942627ecd5ffbb984a45f" "20180503214025.974":
-  entity shift_reg_8b at 1( 0) + 0 on 2145;
-  architecture structure of shift_reg_8b at 14( 466) + 0 on 2146;
-file . "display_module.vhdl" "92588713163b488e136903078e896163cd0febe0" "20180503214026.085":
-  entity display_module at 1( 0) + 0 on 2149;
-  architecture behavioral of display_module at 14( 290) + 0 on 2150;
-file . "single_cycle.vhdl" "5d8242272436cb284f625805683aefc0e0583bc3" "20180503214026.225":
-  entity single_cycle at 1( 0) + 0 on 2157;
-  architecture structure of single_cycle at 18( 567) + 0 on 2158;
-file . "adder_subtractor_8b.vhdl" "85390bfc94988970ebfdb9f1f57ea55cc050ffbf" "20180503214026.177":
-  entity full_adder at 1( 0) + 0 on 2153;
-  architecture behav of full_adder at 11( 173) + 0 on 2154;
-  entity adder_subtractor_8b at 17( 305) + 0 on 2155;
-  architecture structure of adder_subtractor_8b at 28( 538) + 0 on 2156;
+file . "adder_subtractor_8b.vhdl" "85390bfc94988970ebfdb9f1f57ea55cc050ffbf" "20180504020727.514":
+  entity full_adder at 1( 0) + 0 on 2577;
+  architecture behav of full_adder at 11( 173) + 0 on 2578;
+  entity adder_subtractor_8b at 17( 305) + 0 on 2579;
+  architecture structure of adder_subtractor_8b at 28( 538) + 0 on 2580;
+file . "single_cycle.vhdl" "423df69cd7f78e0838b296f4f55f615211f9eb53" "20180504020727.559":
+  entity single_cycle at 1( 0) + 0 on 2581;
+  architecture structure of single_cycle at 18( 567) + 0 on 2582;
+file . "display_module.vhdl" "92588713163b488e136903078e896163cd0febe0" "20180504020727.171":
+  entity display_module at 1( 0) + 0 on 2573;
+  architecture behavioral of display_module at 14( 290) + 0 on 2574;
+file . "shift_reg_8b.vhdl" "c7b3ad89766042285d0942627ecd5ffbb984a45f" "20180504020727.079":
+  entity shift_reg_8b at 1( 0) + 0 on 2569;
+  architecture structure of shift_reg_8b at 14( 466) + 0 on 2570;
+file . "shift_reg.vhdl" "406077cbdb3e5bb63dc5f2227f91df753259ce2f" "20180504020727.024":
+  entity shift_reg at 1( 0) + 0 on 2567;
+  architecture behav of shift_reg at 15( 485) + 0 on 2568;
+file . "register_module.vhdl" "7e43cd7b13b3f5619935ea56bcc7b3bbbc831e17" "20180504020727.130":
+  entity register_module at 1( 0) + 0 on 2571;
+  architecture structure of register_module at 29( 1013) + 0 on 2572;
+file . "sign_extend_module.vhdl" "c95f3343a4921a0c78a8daaa454cb49c0b6b0888" "20180504020727.213":
+  entity sign_extend_module at 1( 0) + 0 on 2575;
+  architecture behav of sign_extend_module at 11( 220) + 0 on 2576;
+file . "single_cycle_tb.vhdl" "2b0bb359add31c137e2e6fd2eae1841a518861aa" "20180504020728.693":
+  entity single_cycle_tb at 1( 0) + 0 on 2583;
+  architecture behavioral of single_cycle_tb at 8( 119) + 0 on 2584;
+file . "register_module_tb.vhdl" "0fab2d14d8ca99668ca29d6a80e7f68a507a5b05" "20180504005235.262":
+  entity register_module_tb at 1( 0) + 0 on 2223;
+  architecture behav of register_module_tb at 7( 104) + 0 on 2224;
+file . "display_module_tb.vhdl" "489f57a7102379a6c2c72d51ed237998a7bb218b" "20180503214241.470":
+  entity display_module_tb at 1( 0) + 0 on 2181;
+  architecture behavioral of display_module_tb at 7( 102) + 0 on 2182;

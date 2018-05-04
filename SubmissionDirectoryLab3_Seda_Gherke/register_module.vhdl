@@ -49,43 +49,36 @@ signal triggerRegisters: std_logic := '0';
 
 
 begin
-
-
-
-process(enableWrite, des) is
-        -- 00 is hold and 11 is load operation for shift registers
-    begin
-        select0 <= "00";
-        select1 <= "00";
-        select2 <= "00";
-        select3 <= "00";
-        if(enableWrite='1') then
-            case des is
-                when "00" => select0 <= "11";
-                when "01" => select1 <= "11";
-                when "10" => select2 <= "11";
-                when "11" => select3 <= "11";
-                when others => select0 <= "11"; -- default case for safety
-        end case;
-        end if;
-end process;
-
 -- process to handle writing to register
-process(clk) is
+process(enableWrite, des, clk) is
 begin
-    if(clk'event) then
-        if(clk = '0') then
-            triggerRegisters <= '1';
-        end if;
-        if(clk = '1') then
-            triggerRegisters <= '0';
+    -- 00 is hold and 11 is load operation for shift registers
+    select0 <= "00";
+    select1 <= "00";
+    select2 <= "00";
+    select3 <= "00";
+    if(enableWrite='1') then
+        case des is
+            when "00" => select0 <= "11";
+            when "01" => select1 <= "11";
+            when "10" => select2 <= "11";
+            when "11" => select3 <= "11";
+            when others => select0 <= "11"; -- default case for safety
+        end case;
+        -- a little bit "cheaty" here, but this ensures the write happens before the read
+        if(clk'event) then
+            if(clk = '0') then
+                triggerRegisters <= '1';
+            end if;
+            if(clk = '1') then
+                triggerRegisters <= '0';
+            end if;
         end if;
     end if;
-
 end process;
 
 -- processes to handle reading from appropriate registers
-process(reg0Val, reg1Val, reg2Val, reg3Val, rs) is
+process(reg0Val, reg1Val, reg2Val, reg3Val, rs, clk) is
 begin
     case rs is
         when "00" => rsval <= reg0Val;
@@ -96,7 +89,7 @@ begin
     end case;
 end process;
 
-process(reg0Val, reg1Val, reg2Val, reg3Val, rt) is
+process(reg0Val, reg1Val, reg2Val, reg3Val, rt, clk) is
 begin
     case rt is
         when "00" => rtval <= reg0Val;
